@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+problems/executable
+
+# Vs Code Config
+*.vscode
+
