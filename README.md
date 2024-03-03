@@ -1,2 +1,5 @@
 # ds-algo24
-About My solutions to various data structure and algorithms problems  Resources  Readme
+
+My solutions to various data structure and algorithms problems that have been complied from multiple souces including leetcode.
+
+**Language Used**: C++
