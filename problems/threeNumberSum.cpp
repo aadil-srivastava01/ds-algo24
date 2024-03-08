@@ -5,7 +5,7 @@ Write a function that takes in a non-empty array of distinct integers and an int
 If no three numbers sum up to the target sum, the function should return an empty array.
 
 Sample Input
-array = [12, 3, 1, 2, 6, 5, 8, 6] targetSum = 0
+array = [12, 3, 1, 2, -6, 5, -8, 6] targetSum = 0
 Sample Output
 [[-8, 2, 6], [-8, 3, 5], [-6, 1, 5]]
 
@@ -49,7 +49,7 @@ void twoNumberSum(vector<int> &array, size_t beginIndex,
     }
 }
 
-vector<vector<int>> threeNumberSum(vector<int> array, int targetSum)
+vector<vector<int>> threeNumberSum(vector<int> &array, int targetSum)
 {
     sort(array.begin(), array.end());
     int currentTargetSum;
@@ -66,7 +66,7 @@ vector<vector<int>> threeNumberSum(vector<int> array, int targetSum)
 
 int main()
 {
-    vector<int> array{12, 3, 1, 2, 6, 5, 8, 6};
+    vector<int> array{12, 3, 1, 2, -6, 5, -8, 6};
     int targetSum = 0;
     auto result = threeNumberSum(array, targetSum);
     for (auto &triplet : result)
