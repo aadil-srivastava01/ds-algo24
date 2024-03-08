@@ -33,11 +33,7 @@ void twoNumberSum(vector<int> &array, size_t beginIndex,
         if ((array.at(beginPointer) + array.at(endPointer)) == currentTargetSum)
         {
             // result.emplace_back(num, array.at(beginPointer), array.at(endPointer));
-            vector<int> tmp;
-            tmp.push_back(num);
-            tmp.push_back(array.at(beginPointer));
-            tmp.push_back(array.at(endPointer));
-            result.push_back(tmp);
+            result.push_back(vector<int>{num, array.at(beginPointer), array.at(endPointer)});
             beginPointer++;
             endPointer--;
             continue;
