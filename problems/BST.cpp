@@ -31,7 +31,6 @@ std::ostream &operator<<(std::ostream &os, const TreeNode *obj)
 class BinarySearchTree
 {
 private:
-    TreeNode *parent;
     void iOTraverse(TreeNode *node);
 
 public:
@@ -40,6 +39,7 @@ public:
     BinarySearchTree(int value);
     TreeNode *lookup(int x);
     void insert(int num);
+    void remove(int num);
     void inOrderTraverse() { iOTraverse(root); }
 };
 
@@ -59,6 +59,10 @@ TreeNode *BinarySearchTree::lookup(int x)
     }
 
     return NULL;
+}
+
+void BinarySearchTree::remove(int num)
+{
 }
 
 void BinarySearchTree::insert(int num)
@@ -106,6 +110,13 @@ int main()
     BinarySearchTree bst{9};
     bst.insert(4);
     bst.insert(20);
+    bst.insert(1);
+    bst.insert(6);
+    bst.insert(15);
+    bst.insert(170);
     bst.inOrderTraverse();
+    std::cout << std::endl;
+    std::cout << bst.lookup(20) << std::endl;
+    std::cout << bst.lookup(2) << std::endl;
     return 1;
 }
