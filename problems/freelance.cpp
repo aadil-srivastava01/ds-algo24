@@ -13,29 +13,46 @@ Sample Output
 
 Solution Complexity:
 
+Time: O(nlog(n)) | Space: O(1)
+
 */
 
 #include <iostream>
 #include <vector>
 #include <algorithm>
-
+#include <array>
+#include <numeric>
 using namespace std;
-
-int optimalFreelancing(vector<unordered_map<string, int>> jobs)
+int optimalFreelancing(vector<unordered_map<string, int>> &jobs)
 {
     unordered_map<int, int> maxProfitForDays;
-    int maxPayment{0};
+    array<int, 7> maxOnDay{{0, 0, 0, 0, 0, 0, 0}};
+    sort(jobs.begin(), jobs.end(), [](auto &a, auto &b)
+         { return a["payment"] > b["payment"]; });
+
+    int deadline{0};
     for (auto &job : jobs)
     {
-        maxProfitForDays[job["deadline"]] = max(maxProfitForDays[job["deadline"]], job["payment"]);
+        deadline = job.at("deadline") - 1 > 6 ? 6 : job.at("deadline") - 1;
+        while (deadline >= 0)
+        {
+            if (maxOnDay.at(deadline) == 0)
+            {
+                maxOnDay.at(deadline) = job.at("payment");
+                break;
+            }
+            else
+                deadline--;
+        }
     }
-    for (const auto &it : maxProfitForDays)
-        maxPayment += it.second;
-    return maxPayment;
+    return accumulate(maxOnDay.begin(), maxOnDay.end(), 0);
 }
 
 int main()
 {
+    vector<unordered_map<string, int>> jobs = {
+        {{"deadline", 1}, {"payment", 1}}};
+    cout << optimalFreelancing(jobs) << endl;
 
     return 0;
 }
