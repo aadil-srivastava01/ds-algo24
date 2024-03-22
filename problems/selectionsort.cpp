@@ -3,14 +3,8 @@
 Perform Selection Sort
 
 Solution Complexity:
-
+Time: O(n^2) | Space: O(1)
 */
-
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
-using namespace std;
 
 #include <vector>
 #include <limits.h>
@@ -21,35 +15,24 @@ vector<int> selectionSort(vector<int> array)
 
     int minIdx{0};
     int minVal{INT_MAX};
+    int temp;
     bool flag{false};
     for (int i{0}; i < array.size(); i++)
     {
         minIdx = 0;
         minVal = INT_MAX;
-        flag = false;
 
-        for (int j = i + 1; j < array.size(); j++)
+        for (int j = i; j < array.size(); j++)
         {
             if (array.at(j) < minVal)
             {
                 minVal = array.at(j);
                 minIdx = j;
             }
-            flag = true;
         }
-        if (flag)
-        {
-            cout << minVal << endl;
-            array.at(minIdx) = array.at(i) + array.at(minIdx);
-            array.at(i) = array.at(minIdx) - array.at(i);
-            array.at(minIdx) = array.at(minIdx) - array.at(i);
-        }
+        temp = array.at(i);
+        array.at(i) = array.at(minIdx);
+        array.at(minIdx) = temp;
     }
     return array;
-}
-
-int main()
-{
-
-    return 0;
 }
