@@ -38,5 +38,7 @@ int main()
 
     string input{"abcda"};
     cout << caesarCypherEncryptor(input, 400) << endl;
+    input.append(to_string(9));
+    cout << input << endl;
     return 0;
 }
