@@ -18,7 +18,6 @@ Space: O(n)| Time: O(mxn) n-> number of strings m -> length of string
 #include <unordered_map>
 
 using namespace std;
-
 vector<string> commonCharacters(vector<string> strings)
 {
 
@@ -33,21 +32,25 @@ vector<string> commonCharacters(vector<string> strings)
 
         unordered_set<string> charTracker;
         unordered_map<string, int> counter;
+        string temp;
 
         for (const auto &str : strings)
         {
-            for (const auto character : str)
+            for (auto character : str)
             {
-                charTracker.emplace(character);
+                temp += character;
+                charTracker.emplace(temp);
+                temp.clear();
             }
             for (auto itr = charTracker.begin(); itr != charTracker.end(); itr++)
             {
+                cout << *itr << endl;
                 counter[*itr] += 1;
             }
             charTracker.clear();
         }
 
-        for (auto itr = counter.begin(); itr != charTracker.end(); itr++)
+        for (auto itr = counter.begin(); itr != counter.end(); itr++)
         {
             if (itr->second == strings.size())
                 result.emplace_back(itr->first);
