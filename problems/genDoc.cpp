@@ -8,7 +8,8 @@ Input: Characaters: abcabc, Document = aabbccc
 Output: false
 
 Solution Complexity:
-
+generateDocument : Time: O(n + m) n & m are the lengh of 2 strings | Space: O(c1 + c2), number of unique chars in two strings
+generateDocumentSpaceOptimsed: Time: O(n + m) n & m are the lengh of 2 strings | Space: O(c1), number of unique chars in characters string
 */
 
 #include <iostream>
@@ -41,10 +42,29 @@ bool generateDocument(string &characters, string &document)
     return true;
 }
 
+bool generateDocumentSpaceOptimsed(string &characters, string &document)
+{
+    unordered_map<char, int> charCounter;
+
+    for (auto &c : characters)
+    {
+        charCounter[c] += 1;
+    }
+
+    for (auto &c : document)
+    {
+        charCounter[c] -= 1;
+        if (charCounter.at(c) < 0)
+            return false;
+    }
+    return true;
+}
+
 int main()
 {
     string document{"aabbccc"};
     string chars{"abcabc"};
     cout << generateDocument(chars, document) << endl;
+    cout << generateDocumentSpaceOptimsed(chars, document) << endl;
     return 0;
 }
