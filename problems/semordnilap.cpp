@@ -10,7 +10,7 @@ Sample Output
 [["diaper", "repaid"], ["abc", "cba"]]
 
 Solution Complexity:
-Time:
+Time: O(n*m) | Space: O(n), where n = number of words in list, m = length of the longest word
 */
 
 #include <iostream>
