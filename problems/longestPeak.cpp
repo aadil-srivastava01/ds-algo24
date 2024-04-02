@@ -25,25 +25,64 @@ int longestPeak(vector<int> array)
         return 0;
     else
     {
-        bool isInc{false};
-        int peakLen{0};
+        bool isIncresing{false};
+        int currPeakLen{0};
+        int maxPeakLen{0};
         int prev = array.at(1);
-        isInc = array.at(1) > array.at(0) ? true : false;
+        bool peakFound{false};
+
+        isIncresing = array.at(1) > array.at(0) ? true : false;
+        currPeakLen = isIncresing ? 2 : 1;
+
         for (size_t i = 2; i < array.size(); i++)
         {
-            if (array.at(i) > prev && isInc)
+            if (array.at(i) > prev && !peakFound)
             {
-                isInc = true;
+                isIncresing = true;
+                currPeakLen++;
                 prev = array.at(i);
-                peakLen++;
                 continue;
             }
+            if (array.at(i) < prev && (isIncresing || peakFound))
+            {
+                peakFound = true;
+                isIncresing = false;
+                currPeakLen++;
+                prev = array.at(i);
+                continue;
+            }
+            if (array.at(i) > prev && peakFound)
+            {
+                if (currPeakLen > maxPeakLen)
+                    maxPeakLen = currPeakLen;
+
+                currPeakLen = 2;
+                peakFound = false;
+                isIncresing = true;
+                prev = array.at(i);
+                continue;
+            }
+            if (peakFound)
+            {
+                if (currPeakLen > maxPeakLen)
+                    maxPeakLen = currPeakLen;
+            }
+            currPeakLen = 1;
+            peakFound = false;
+            isIncresing = false;
+            prev = array.at(i);
+            continue;
         }
+        if (currPeakLen > maxPeakLen && peakFound && currPeakLen >= 3)
+            maxPeakLen = currPeakLen;
+
+        return maxPeakLen;
     }
 }
 
 int main()
 {
-
+    vector<int> input = {1, 2, 3, 3, 4, 0, 10, 6, 5, -1, -3, 2, 3};
+    cout << longestPeak(input);
     return 0;
 }
