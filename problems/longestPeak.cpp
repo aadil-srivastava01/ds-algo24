@@ -9,7 +9,7 @@ Sample Output
 6 // 0, 10, 6, 5, -1, -3
 
 Solution Complexity:
-
+Time: O(n) | Space: O(1)
 */
 
 #include <iostream>
@@ -78,6 +78,59 @@ int longestPeak(vector<int> array)
 
         return maxPeakLen;
     }
+}
+
+int cleanLongestPeak(vector<int> array)
+{
+    bool isPeaked{false};
+    bool isIncreasing;
+    int currPeak{1};
+    int maxPeak{0};
+    int prevVal;
+
+    if (array.size() < 3)
+        return 0;
+
+    isIncreasing = array.at(0) < array.at(1) ? true : false;
+    currPeak = isIncreasing ? 2 : 1;
+    prevVal = array.at(1);
+    for (size_t idx = 2; idx < array.size(); idx++)
+    {
+
+        if (prevVal < array.at(idx) && !isPeaked)
+        {
+            ++currPeak;
+            isIncreasing = true;
+            prevVal = array.at(idx);
+            continue;
+        }
+
+        if (prevVal > array.at(idx) && (isIncreasing || isPeaked))
+        {
+            ++currPeak;
+            isPeaked = true;
+            isIncreasing = false;
+            prevVal = array.at(idx);
+            continue;
+        }
+        if (prevVal <= array.at(idx) && isPeaked)
+        {
+            if (currPeak > maxPeak)
+                maxPeak = currPeak;
+
+            isPeaked = false;
+            currPeak = 1;
+            prevVal = array.at(idx);
+            if (prevVal < array.at(idx))
+                isIncreasing = true;
+            continue;
+        }
+    }
+    if (isPeaked)
+        if (currPeak > maxPeak)
+            maxPeak = currPeak;
+
+    return maxPeak;
 }
 
 int main()
