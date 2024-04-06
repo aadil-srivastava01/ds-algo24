@@ -8,7 +8,7 @@ Sample Input #1
 array [2, 1, 5, 2, 3, 3, 4]
 Sample Output #1
 2 // 2 is the first integer that appears more than once.
-// 3 also appears more than once, but the second 3 appears after the second 2.
+// 3 also appears more than once, but the second 3 appears after the second 2.  `
 
 Solution Complexity:
 
@@ -38,8 +38,27 @@ int subOptimfirstDuplicateValue(vector<int> array)
     return -1;
 }
 
-int main()
+int firstDuplicateValue(vector<int> array)
 {
 
+    for (const auto val : array)
+    {
+        if (array.at(val - 1) < 0)
+        {
+            return val;
+        }
+        else
+        {
+            array.at(val - 1) *= -1;
+        }
+    }
+    return -1;
+}
+
+int main()
+{
+    vector<int> input = {2, 1, 5, 2, 3, 3, 4};
+    cout << subOptimfirstDuplicateValue(input) << endl;
+    cout << firstDuplicateValue(input) << endl;
     return 0;
 }
