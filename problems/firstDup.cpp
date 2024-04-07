@@ -13,7 +13,7 @@ Sample Output #1
 Solution Complexity:
 
 Time: O(n) | Space: O(n)
-
+Optimum: Time O(n) | Space O(1)
 */
 
 #include <iostream>
@@ -41,16 +41,14 @@ int subOptimfirstDuplicateValue(vector<int> array)
 int firstDuplicateValue(vector<int> array)
 {
 
-    for (const auto val : array)
+    int idx{0};
+    for (const int val : array)
     {
-        if (array.at(val - 1) < 0)
-        {
-            return val;
-        }
+        idx = val < 0 ? ((val * -1) - 1) : (val - 1);
+        if (array.at(idx) < 0)
+            return idx + 1;
         else
-        {
-            array.at(val - 1) *= -1;
-        }
+            array.at(idx) *= -1;
     }
     return -1;
 }
