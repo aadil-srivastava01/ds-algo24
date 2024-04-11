@@ -36,9 +36,55 @@ vector<int> subOpmissingNumbers(vector<int> nums)
     return result;
 }
 
+vector<int> missingNumbers(vector<int> nums)
+{
+    vector<int> outliers;
+    for (auto num : nums)
+    {
+        if (num < 0)
+            num *= -1;
+        if (num > nums.size())
+        {
+            outliers.emplace_back(num);
+            continue;
+        }
+        else
+        {
+            nums.at(num - 1) *= -1;
+        }
+    }
+
+    vector<int> result;
+
+    for (int i = 0; i < nums.size(); i++)
+    {
+        if (nums.at(i) > 0)
+        {
+            result.emplace_back(nums.at(i));
+        }
+    }
+
+    if (result.size() == 0)
+    {
+        result.emplace_back(nums.size() + 1);
+        result.emplace_back(nums.size() + 2);
+    }
+    else if (result.size() == 2)
+    {
+        sort(result.begin(), result.end());
+    }
+    else if (result.size() == 1)
+    {
+        result.emplace_back(outliers.at(0));
+        sort(result.begin(), result.end());
+    }
+    return result;
+}
+
 int main()
 {
     vector<int> input = {4, 5, 1, 3};
     subOpmissingNumbers(input);
+    missingNumbers(input);
     return 0;
 }
