@@ -8,7 +8,8 @@ Sample Output
 [2, 5] // n is 5, meaning the completed list should be [1, 2, 3, 4, 5]
 
 Solution Complexity:
-Sub-optimal: Time: O(n) | Space: O(1)
+Sub-optimal: Time: O(n) | Space: O(n)
+Optimal: Time: O(n) | Space: O(1)
 */
 
 #include <iostream>
@@ -60,7 +61,7 @@ vector<int> missingNumbers(vector<int> nums)
     {
         if (nums.at(i) > 0)
         {
-            result.emplace_back(nums.at(i));
+            result.emplace_back(i + 1);
         }
     }
 
@@ -75,7 +76,10 @@ vector<int> missingNumbers(vector<int> nums)
     }
     else if (result.size() == 1)
     {
-        result.emplace_back(outliers.at(0));
+        if (outliers.at(0) == nums.size() + 2)
+            result.emplace_back(outliers.at(0) - 1);
+        else
+            result.emplace_back(outliers.at(0) + 1);
         sort(result.begin(), result.end());
     }
     return result;
